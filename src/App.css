@@ -28,6 +28,20 @@
   color: #61dafb;
 }
 
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+}
+
+.keyboard .char {
+  width: 1.2em;
+  height: 1.2em;
+  margin: 0.1em;
+  font-size: 2em;
+  border: solid 2px #000;
+  border-radius: 5px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import words from './words.json';
+
+const CHARS = genCharArray();
+
+function genCharArray() {
+    let chars = [];
+    for (let i = 'A'.charCodeAt(0); i <= 'Z'.charCodeAt(0); i += 1) {
+        chars.push(String.fromCharCode(i));
+    }
+    return chars;
+}
 
 class App extends Component {
   state = {
@@ -20,6 +29,11 @@ class App extends Component {
               {word.split('').map((char, index) => (
                   "_ "
               ))}
+              <section class="keyboard">
+                  {CHARS.map((char, index) => (
+                      <button class="char">{char}</button>
+                  ))}
+              </section>
           </header>
         </div>
     );
