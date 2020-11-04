@@ -1,8 +1,19 @@
 import React, {Component} from 'react';
 import './App.css';
+import shuffle from 'lodash.shuffle'
 import words from './words.json';
 
 const CHARS = genCharArray();
+const DEFAULT_STATE = {
+    word: chooseWord(),
+    charsFound: [],
+    charsClicked: [],
+};
+
+function chooseWord() {
+    const shuffledWords = shuffle(words);
+    return shuffledWords[0];
+};
 
 function genCharArray() {
     let chars = [];
@@ -13,15 +24,11 @@ function genCharArray() {
 }
 
 class App extends Component {
-    state = {
-        word: words[0],
-        charsFound: [],
-        charsClicked: []
-    };
+    state = {...DEFAULT_STATE};
 
-    chooseWord() {
-        this.word = words[0];
-    };
+    reset() {
+        this.setState(DEFAULT_STATE);
+    }
 
     handleClick(char, e) {
         let {charsClicked, charsFound, word} = this.state;
