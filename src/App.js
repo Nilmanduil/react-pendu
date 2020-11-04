@@ -24,10 +24,14 @@ class App extends Component {
     };
 
     handleClick(char, e) {
+        let {charsClicked, charsFound, word} = this.state;
         e.preventDefault();
         console.info(char);
-        if (!this.state.charsClicked.includes(char)) {
+        if (!charsClicked.includes(char)) {
             this.setState({charsClicked: [...this.state.charsClicked, char]});
+            if (word.toUpperCase().includes(char)) {
+                this.setState({charsFound: [...charsFound, char]});
+            }
         }
     }
 
@@ -38,7 +42,7 @@ class App extends Component {
                 <header className="App-header">
                     <section class="word">
                         {word.split('').map((char, index) => (
-                            "_ "
+                            charsFound.includes(char) ? char + " " : "_ "
                         ))}
                     </section>
                     <section class="keyboard">
