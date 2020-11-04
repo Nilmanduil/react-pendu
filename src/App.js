@@ -42,8 +42,9 @@ class App extends Component {
             }
             let missingLettersRegex = new RegExp("[^" + charsFound.join('') + "]", "i");
             if (!missingLettersRegex.test(word)) {
-                this.setState({won: true});
-                setTimeout(this.reset, 3000);
+                this.setState({won: true}, () => {
+                    setTimeout(this.reset, 2000);
+                });
             }
         }
     }
