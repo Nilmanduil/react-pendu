@@ -33,6 +33,10 @@
   margin-bottom: 1em;
 }
 
+.word.won {
+  color: #292;
+}
+
 .keyboard {
   display: grid;
   grid-template-columns: repeat(13, 1fr);

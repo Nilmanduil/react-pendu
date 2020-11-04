@@ -8,6 +8,7 @@ const DEFAULT_STATE = {
     word: chooseWord(),
     charsFound: [],
     charsClicked: [],
+    won: false,
 };
 
 function chooseWord() {
@@ -26,8 +27,8 @@ function genCharArray() {
 class App extends Component {
     state = {...DEFAULT_STATE};
 
-    reset() {
-        this.setState(DEFAULT_STATE);
+    reset = () => {
+        this.setState({...DEFAULT_STATE, word: chooseWord(), charsFound: [], charsClicked: []});
     }
 
     handleClick(char, e) {
@@ -36,7 +37,13 @@ class App extends Component {
         if (!charsClicked.includes(char)) {
             this.setState({charsClicked: [...this.state.charsClicked, char]});
             if (word.toUpperCase().includes(char)) {
-                this.setState({charsFound: [...charsFound, char]});
+                charsFound.push(char);
+                this.setState({charsFound});
+            }
+            let missingLettersRegex = new RegExp("[^" + charsFound.join('') + "]", "i");
+            if (!missingLettersRegex.test(word)) {
+                this.setState({won: true});
+                setTimeout(this.reset, 3000);
             }
         }
     }
@@ -57,17 +64,17 @@ class App extends Component {
     }
 
     render() {
-        const {word, charsClicked, charsFound} = this.state;
+        const {word, charsClicked, charsFound, won} = this.state;
         return (
             <div className="App">
                 <header className="App-header">
-                    <section class="word">
-                        {word.split('').map((char, index) => (
-                            charsFound.includes(char) ? char + " " : "_ "
+                    <section class={won ? "word won" : "word"}>
+                        {word.split('').map((char) => (
+                            charsFound.includes(char) || won ? char + " " : "_ "
                         ))}
                     </section>
                     <section class="keyboard">
-                        {CHARS.map((char, index) => (
+                        {CHARS.map((char) => (
                             <button
                                 class={charsClicked.includes(char) ? "char disabled" : "char"}
                                 key={char}
@@ -78,7 +85,7 @@ class App extends Component {
                         ))}
                     </section>
                     <section class="charsClicked">
-                        {charsClicked.map((char, index) => (
+                        {charsClicked.map((char) => (
                             char + " "
                         ))}
                     </section>
