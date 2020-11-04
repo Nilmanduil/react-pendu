@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import words from './words.json';
 
@@ -13,31 +13,54 @@ function genCharArray() {
 }
 
 class App extends Component {
-  state = {
-    word: words[0],
-  };
+    state = {
+        word: words[0],
+        charsFound: [],
+        charsClicked: []
+    };
 
-  chooseWord() {
-    this.word = words[0];
-  };
+    chooseWord() {
+        this.word = words[0];
+    };
 
-  render() {
-      const { word } = this.state;
-    return (
-        <div className="App">
-          <header className="App-header">
-              {word.split('').map((char, index) => (
-                  "_ "
-              ))}
-              <section class="keyboard">
-                  {CHARS.map((char, index) => (
-                      <button class="char">{char}</button>
-                  ))}
-              </section>
-          </header>
-        </div>
-    );
-  }
+    handleClick(char, e) {
+        e.preventDefault();
+        console.info(char);
+        if (!this.state.charsClicked.includes(char)) {
+            this.setState({charsClicked: [...this.state.charsClicked, char]});
+        }
+    }
+
+    render() {
+        const {word, charsClicked, charsFound} = this.state;
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <section class="word">
+                        {word.split('').map((char, index) => (
+                            "_ "
+                        ))}
+                    </section>
+                    <section class="keyboard">
+                        {CHARS.map((char, index) => (
+                            <button
+                                class="char"
+                                key={char}
+                                onClick={(e) => this.handleClick(char, e)}
+                            >
+                                {char}
+                            </button>
+                        ))}
+                    </section>
+                    <section class="charsClicked">
+                        {charsClicked.map((char, index) => (
+                            char + " "
+                        ))}
+                    </section>
+                </header>
+            </div>
+        );
+    }
 
 }
 
