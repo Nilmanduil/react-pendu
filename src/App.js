@@ -26,13 +26,25 @@ class App extends Component {
     handleClick(char, e) {
         let {charsClicked, charsFound, word} = this.state;
         e.preventDefault();
-        console.info(char);
         if (!charsClicked.includes(char)) {
             this.setState({charsClicked: [...this.state.charsClicked, char]});
             if (word.toUpperCase().includes(char)) {
                 this.setState({charsFound: [...charsFound, char]});
             }
         }
+    }
+
+    handlePhysicalKeyboardPress = (e) => {
+        const char = e.key.toUpperCase();
+        this.handleClick(char, e);
+    }
+
+    componentDidMount() {
+        document.addEventListener('keydown', this.handlePhysicalKeyboardPress);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.handlePhysicalKeyboardPress);
     }
 
     render() {
