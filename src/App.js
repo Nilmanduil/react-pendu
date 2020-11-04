@@ -62,7 +62,7 @@ class App extends Component {
                     <section class="keyboard">
                         {CHARS.map((char, index) => (
                             <button
-                                class="char"
+                                class={charsClicked.includes(char) ? "char disabled" : "char"}
                                 key={char}
                                 onClick={(e) => this.handleClick(char, e)}
                             >

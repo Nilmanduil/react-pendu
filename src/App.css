@@ -45,6 +45,13 @@
   font-size: 2em;
   border: solid 2px #000;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.keyboard .char.disabled {
+  background: #333;
+  color: #DDD;
+  cursor: not-allowed;
 }
 
 @keyframes App-logo-spin {
