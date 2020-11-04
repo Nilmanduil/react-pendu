@@ -36,7 +36,9 @@ class App extends Component {
 
     handlePhysicalKeyboardPress = (e) => {
         const char = e.key.toUpperCase();
-        this.handleClick(char, e);
+        if (/^\w$/i.test(char)) {
+            this.handleClick(char, e);
+        }
     }
 
     componentDidMount() {
